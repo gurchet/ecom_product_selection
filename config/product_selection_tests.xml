@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="amazon app feature testing" parallel="tests" thread-count="2">
+	<test name="android test product selection device 1">
+		<parameter name="port_number" value="4723" />
+		<parameter name="device_name" value="device_1" />
+		<classes>
+			<class name="test.mobile.ecom_product_selection.android.tests.TestProductSelection" />
+		</classes>
+	</test>
+	<test name="android test product selection device 2">
+		<parameter name="port_number" value="4724" />
+		<parameter name="device_name" value="device_2" />
+		<classes>
+			<class name="test.mobile.ecom_product_selection.android.tests.TestProductSelection" />
+		</classes>
+	</test>
+</suite>

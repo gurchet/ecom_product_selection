@@ -1,0 +1,18 @@
+[
+	{
+		"platformName": "android",
+		"deviceName": "device_1",
+		"automationName": "Appium",
+		"platformVersion": "13",
+		"noReset": "true",
+		"fullReset": "false"
+	},
+	{
+		"platformName": "android",
+		"deviceName": "device_2",
+		"automationName": "Appium",
+		"platformVersion": "13",
+		"noReset": "true",
+		"fullReset": "false"
+	}
+]
