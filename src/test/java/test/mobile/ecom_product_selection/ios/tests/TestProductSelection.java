@@ -1,9 +1,9 @@
 package test.mobile.ecom_product_selection.ios.tests;
 
 import test.mobile.ecom_product_selection.Utils.PropertiesUtils;
+import test.mobile.ecom_product_selection.common.AppiumService;
 import test.mobile.ecom_product_selection.common.LocalAppiumDriver;
 import test.mobile.ecom_product_selection.common.LocalAppiumService;
-import java.util.Date;
 
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -12,24 +12,30 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
 /**
  * @author : gurchet.singh
  *
  */
 public class TestProductSelection {
+	AppiumService appiumService;
+	AppiumDriver driver;
 
-	@Parameters({ "port_number" })
+	@Parameters({ "port_number", "platform", "target_type", "device_name" })
 	@BeforeTest
-	public void beforeTest(String portNumber) throws Exception {
+	public void beforeTest(String portNumber, String platform, String targetType, String deviceName) throws Exception {
+		PropertiesUtils.put("port_number", portNumber);
+		PropertiesUtils.put("platform", platform);
+		PropertiesUtils.put("target_type", targetType);
+		PropertiesUtils.put("device_name", deviceName);
 		LocalAppiumService.startAppiumDriverService();
 	}
 
-	@Parameters({ "device_name" })
 	@BeforeMethod
-	public void beforeMethod(String device_name) throws Exception {
-		PropertiesUtils.put("device_name", device_name);
-		LocalAppiumDriver.createAppiumDriver();
-		System.out.println("Appium driver is created for device " + device_name);
+	public void beforeMethod() throws Exception {
+		driver = LocalAppiumDriver.getAppiumDriver();
+		System.out.println("Appium driver is created for device " + PropertiesUtils.get("device_name"));
 	}
 
 	@AfterMethod
@@ -38,9 +44,7 @@ public class TestProductSelection {
 	}
 
 	@Test
-	public void runMessagesTest() throws Exception {
-		System.out.println("Appium server : " + LocalAppiumService.getAppiumServerUrl());
-		System.out.println("Appium driver : " + LocalAppiumDriver.getAppiumDriver().getAutomationName());
+	public void testProductSelection() throws Exception {
 	}
 
 	@AfterTest
@@ -48,7 +52,5 @@ public class TestProductSelection {
 		LocalAppiumService.stopAppiumDriverService();
 	}
 
-	private void log(String message) {
-		System.out.println(" ### " + new Date() + " ### " + message);
-	}
+	
 }

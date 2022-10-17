@@ -15,7 +15,8 @@ public class ProductResults extends AndroidBasePage {
 		super(driver);
 	}
 
-	public void selectProductByIndex(int index) {
+	public BuyNow selectProductByIndex(int index) {
 		waitAndClick(By.xpath("//div[@data-cel-widget='search_result_" + String.valueOf(index) + "']"));
+		return new BuyNow(this.driver);
 	}
 }

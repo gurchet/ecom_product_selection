@@ -14,16 +14,14 @@ public class Home extends AndroidBasePage {
 	By searchBar = By.id("search_query_top");
 	By searchButton = By.id("nav-search-submit-button");
 
-	Home(AndroidDriver<AndroidElement> driver) {
+	public Home(AndroidDriver<AndroidElement> driver) {
 		super(driver);
 	}
 	
-	public void searchProduct(String productName) {
+	public ProductResults searchProduct(String productName) {
 		waitAndEnter(this.searchBar, productName);
 		waitAndClick(this.searchButton);
+		return new ProductResults(this.driver);
 	}
 
-	public void selectProductByIndex(int index) {
-		waitAndClick(By.xpath("//div[@data-cel-widget='search_result_" + String.valueOf(index) + "']"));
-	}
 }

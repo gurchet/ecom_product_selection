@@ -18,10 +18,20 @@ public class LocalAppiumDriver {
 	private static AppiumDriver driver;
 
 	public static AppiumDriver getAppiumDriver() throws Exception {
-		if(Objects.nonNull(driver))
+		if (Objects.nonNull(driver))
 			return driver;
 		else
-			return new AndroidDriver<AndroidElement>(LocalAppiumService.getAppiumServerUrl(), CustomCapabilities.get());
+			switch (PropertiesUtils.get("platform")) {
+			case "android":
+				driver = new AndroidDriver<AndroidElement>(LocalAppiumService.getAppiumServerUrl(),
+						CustomCapabilities.get());
+				return driver;
+			case "ios":
+				driver = new IOSDriver<IOSElement>(LocalAppiumService.getAppiumServerUrl(), CustomCapabilities.get());
+				return driver;
+			default:
+				return driver;
+			}
 	}
 
 	public static void quit() {

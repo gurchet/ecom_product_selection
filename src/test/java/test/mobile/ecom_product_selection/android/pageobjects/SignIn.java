@@ -20,19 +20,23 @@ public class SignIn extends AndroidBasePage {
 		super(driver);
 	}
 
-	public void enterEmail(String emailString) {
+	public SignIn enterEmail(String emailString) {
 		waitAndEnter(this.email, emailString);
+		return new SignIn(this.driver);
 	}
 
-	public void continueNext() {
+	public SignIn continueNext() {
 		waitAndClick(this.continueButton);
+		return new SignIn(this.driver);
 	}
 
-	public void enterPassword(String passwordString) {
+	public SignIn enterPassword(String passwordString) {
 		waitAndEnter(this.password, passwordString);
+		return new SignIn(this.driver);
 	}
 
-	public void signIn() {
+	public Checkout clickSignIn() {
 		waitAndClick(this.signInButton);
+		return new Checkout(this.driver);
 	}
 }

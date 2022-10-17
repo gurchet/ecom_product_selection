@@ -22,4 +22,8 @@ public class AndroidBasePage {
 	public void waitAndEnter(By by, String text) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(by)).sendKeys(text);
 	}
+	
+	public String waitAndExtractText(By by) {
+		return new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(this.driver.findElement(by))).getText();
+	}
 }

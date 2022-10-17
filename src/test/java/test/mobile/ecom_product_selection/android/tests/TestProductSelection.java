@@ -4,7 +4,11 @@ import test.mobile.ecom_product_selection.Utils.PropertiesUtils;
 import test.mobile.ecom_product_selection.common.AppiumService;
 import test.mobile.ecom_product_selection.common.LocalAppiumDriver;
 import test.mobile.ecom_product_selection.common.LocalAppiumService;
+import test.mobile.ecom_product_selection.android.pageobjects.Home;
+
 import java.util.Date;
+
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -14,6 +18,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 
 /**
  * @author : gurchet.singh
@@ -45,9 +51,12 @@ public class TestProductSelection {
 		LocalAppiumDriver.quit();
 	}
 
-	@Test
-	public void testProductSelection() throws Exception {
-		
+	@Test(dataProvider = "name_of_dataprovider", dataProviderClass = ProductsDataProvider.class)
+	public void testProductSelection(String testDataId, String productName, String choiceIndex, String nameOnCard,
+			String cardNumber, String expireMonth, String expireYear) throws Exception {
+		Assert.assertTrue(new Home((AndroidDriver<AndroidElement>) this.driver).searchProduct(productName)
+				.selectProductByIndex(Integer.parseInt(choiceIndex)).buyNow().clickSignIn()
+				.addPaymentDetails(nameOnCard, cardNumber, expireMonth, expireYear).getTotalAmount().length() > 0);
 	}
 
 	@AfterTest
@@ -55,7 +64,4 @@ public class TestProductSelection {
 		LocalAppiumService.stopAppiumDriverService();
 	}
 
-	private void log(String message) {
-		System.out.println(" ### " + new Date() + " ### " + message);
-	}
 }

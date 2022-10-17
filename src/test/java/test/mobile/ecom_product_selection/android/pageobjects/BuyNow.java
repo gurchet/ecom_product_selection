@@ -17,7 +17,8 @@ public class BuyNow extends AndroidBasePage {
 		super(driver);
 	}
 
-	public void buyNow() {
+	public SignIn buyNow() {
 		waitAndClick(this.buyNowButton);
+		return new SignIn(this.driver);
 	}
 }
