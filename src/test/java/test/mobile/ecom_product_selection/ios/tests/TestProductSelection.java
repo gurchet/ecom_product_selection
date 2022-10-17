@@ -1,6 +1,5 @@
 package test.mobile.ecom_product_selection.ios.tests;
 
-import test.mobile.ecom_product_selection.common.Platform;
 import test.mobile.ecom_product_selection.Utils.PropertiesUtils;
 import test.mobile.ecom_product_selection.common.LocalAppiumDriver;
 import test.mobile.ecom_product_selection.common.LocalAppiumService;
@@ -22,14 +21,14 @@ public class TestProductSelection {
 	@Parameters({ "port_number" })
 	@BeforeTest
 	public void beforeTest(String portNumber) throws Exception {
-		LocalAppiumService.startAppiumDriverService(Integer.parseInt(portNumber));
+		LocalAppiumService.startAppiumDriverService();
 	}
 
 	@Parameters({ "device_name" })
 	@BeforeMethod
 	public void beforeMethod(String device_name) throws Exception {
 		PropertiesUtils.put("device_name", device_name);
-		LocalAppiumDriver.createAppiumDriver(Platform.IOS);
+		LocalAppiumDriver.createAppiumDriver();
 		System.out.println("Appium driver is created for device " + device_name);
 	}
 

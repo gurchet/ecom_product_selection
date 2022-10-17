@@ -2,7 +2,6 @@ package test.mobile.ecom_product_selection.android.tests;
 
 import test.mobile.ecom_product_selection.Utils.PropertiesUtils;
 import test.mobile.ecom_product_selection.common.AppiumService;
-import test.mobile.ecom_product_selection.common.Platform;
 import test.mobile.ecom_product_selection.common.LocalAppiumDriver;
 import test.mobile.ecom_product_selection.common.LocalAppiumService;
 import java.util.Date;
@@ -13,6 +12,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+
 /**
  * @author : gurchet.singh
  *
@@ -20,19 +22,22 @@ import org.testng.annotations.Test;
 public class TestProductSelection {
 
 	AppiumService appiumService;
-	
-	@Parameters({ "port_number","device_name" })
+	AppiumDriver driver;
+
+	@Parameters({ "port_number", "platform", "target_type", "device_name" })
 	@BeforeTest
-	public void beforeTest(String portNumber, String deviceName) throws Exception {
+	public void beforeTest(String portNumber, String platform, String targetType, String deviceName) throws Exception {
 		PropertiesUtils.put("port_number", portNumber);
+		PropertiesUtils.put("platform", platform);
+		PropertiesUtils.put("target_type", targetType);
 		PropertiesUtils.put("device_name", deviceName);
-		LocalAppiumService.startAppiumDriverService(Integer.parseInt(portNumber));
+		LocalAppiumService.startAppiumDriverService();
 	}
 
 	@BeforeMethod
 	public void beforeMethod() throws Exception {
-		LocalAppiumDriver.createAppiumDriver(Platform.ANDROID);
-		System.out.println("Appium driver is created for device "+PropertiesUtils.get("device_name"));
+		driver = LocalAppiumDriver.getAppiumDriver();
+		System.out.println("Appium driver is created for device " + PropertiesUtils.get("device_name"));
 	}
 
 	@AfterMethod
@@ -41,8 +46,8 @@ public class TestProductSelection {
 	}
 
 	@Test
-	public void runMessagesTest() throws Exception {
-		System.out.println("Appium driver : " + LocalAppiumDriver.getAppiumDriver().getAutomationName());
+	public void testProductSelection() throws Exception {
+		
 	}
 
 	@AfterTest

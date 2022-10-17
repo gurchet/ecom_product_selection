@@ -3,6 +3,7 @@ package test.mobile.ecom_product_selection.common;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import test.mobile.ecom_product_selection.Utils.Port;
+import test.mobile.ecom_product_selection.Utils.PropertiesUtils;
 
 import java.io.File;
 import java.net.URL;
@@ -15,8 +16,9 @@ import java.util.concurrent.TimeUnit;
 public class LocalAppiumService {
     private static AppiumDriverLocalService appiumServer;
 
-    public static void startAppiumDriverService(int portNumber) {
+    public static void startAppiumDriverService() {
         System.out.println(String.format("Starting Appium server"));
+        int portNumber = Integer.parseInt(PropertiesUtils.get("port_number"));
         AppiumServiceBuilder serviceBuilder = new AppiumServiceBuilder();
         serviceBuilder.withStartUpTimeOut(60, TimeUnit.SECONDS);
         serviceBuilder.withAppiumJS(new File(
